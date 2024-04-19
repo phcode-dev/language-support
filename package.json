@@ -1,7 +1,7 @@
 {
   "name": "@phcode/language-support",
   "description": "Language intelligence powering phoenix code, to be run in the browser/web worker env.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "phoenix",
     "browser",
