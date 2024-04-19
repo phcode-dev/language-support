@@ -19,8 +19,7 @@
     "_build-dev": "webpack --mode development && shx mv dist/language-worker.js dist/language-worker-debug.js",
     "test-browser": "npm run serve & open-cli http://127.0.0.1:8080/test/index.html",
     "build": "npm run eslint && npm run _build-dev && npm run _build-prod && npm run _copyTest",
-    "serve": "http-server . -p 8080 -c-1",
-    "_serve-tauri": "http-server . -p 8081 -c-1",
+    "serve": "http-server . -p 8090 -c-1",
     "bumpPatchVersion": "npm --no-git-tag-version version patch",
     "bumpPatchVersionWithGitTag": "npm version patch",
     "release": "npm run build && npm run bumpPatchVersionWithGitTag"
