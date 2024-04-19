@@ -30,7 +30,8 @@
     "url": "https://github.com/phcode-dev/language-support"
   },
   "files": [
-    "dist/virtualfs.js"
+    "dist/language-worker.js",
+    "dist/language-worker-debug.js"
   ],
   "devDependencies": {
     "vscode-css-languageservice": "^6.0.0",

@@ -10,3 +10,4 @@ dist/*
 !dist/virtualfs.js.map
 !dist/phoenix-fs.js
 test/dist/
+phcode-language-support-1.0.0.tgz
