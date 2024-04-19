@@ -14,7 +14,7 @@
   "scripts": {
     "eslint": "eslint src test",
     "eslint:fix": "eslint src test --fix",
-    "_copyTest": "shx cp dist/language-worker.js test/dist/language-worker.js && shx cp dist/language-worker-debug.js test/dist/language-worker-debug.js",
+    "_copyTest": "shx mkdir -p test/dist && shx cp dist/language-worker.js test/dist/language-worker.js && shx cp dist/language-worker-debug.js test/dist/language-worker-debug.js",
     "_build-prod": "webpack --mode production",
     "_build-dev": "webpack --mode development && shx mv dist/language-worker.js dist/language-worker-debug.js",
     "test-browser": "npm run serve & open-cli http://127.0.0.1:8080/test/index.html",
