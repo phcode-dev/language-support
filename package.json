@@ -1,7 +1,7 @@
 {
   "name": "@phcode/language-support",
   "description": "Language intelligence powering phoenix code, to be run in the browser/web worker env.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "phoenix",
     "browser",
@@ -46,6 +46,5 @@
     "eslint": "8.19.0"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
