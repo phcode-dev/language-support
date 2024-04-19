@@ -1,0 +1,50 @@
+{
+  "name": "@phcode/language-support",
+  "description": "Language intelligence powering phoenix code, to be run in the browser/web worker env.",
+  "version": "1.0.0",
+  "keywords": [
+    "phoenix",
+    "browser",
+    "Language",
+    "intelligence"
+  ],
+  "author": "arun@core.ai",
+  "homepage": "https://github.com/phcode-dev/language-support",
+  "license": "GNU-AGPL3.0",
+  "scripts": {
+    "eslint": "eslint src test",
+    "eslint:fix": "eslint src test --fix",
+    "_copyTest": "shx cp dist/language-worker.js test/dist/language-worker.js && shx cp dist/language-worker-debug.js test/dist/language-worker-debug.js",
+    "_build-prod": "webpack --mode production",
+    "_build-dev": "webpack --mode development && shx mv dist/language-worker.js dist/language-worker-debug.js",
+    "test-browser": "npm run serve & open-cli http://127.0.0.1:8080/test/index.html",
+    "build": "npm run eslint && npm run _build-dev && npm run _build-prod && npm run _copyTest",
+    "serve": "http-server . -p 8080 -c-1",
+    "_serve-tauri": "http-server . -p 8081 -c-1",
+    "bumpPatchVersion": "npm --no-git-tag-version version patch",
+    "bumpPatchVersionWithGitTag": "npm version patch",
+    "release": "npm run build && npm run bumpPatchVersionWithGitTag"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phcode-dev/language-support"
+  },
+  "files": [
+    "dist/virtualfs.js"
+  ],
+  "devDependencies": {
+    "vscode-css-languageservice": "^6.0.0",
+    "shx": "^0.3.4",
+    "@babel/core": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3",
+    "http-server": "14.1.0",
+    "eslint": "8.19.0"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "dependencies": {
+  }
+}

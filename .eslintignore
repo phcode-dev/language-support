@@ -1,0 +1,6 @@
+**/node_modules/**/*.js
+src/thirdparty/**
+src/**/*-min.js
+src/**/*.min.js
+test/thirdparty
+test/dist

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Mocha Tests distribution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css"/>
+    <script>
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'F5') {
+                location.reload();
+            }
+        });
+    </script>
+    <script src="thirdparty/chai@4.2.0.js"></script>
+    <script src="thirdparty/mocha@10.3.0.js"></script>
+
+    <script class="mocha-init">
+        mocha.setup('bdd');
+        mocha.globals([]); // add things here if you get any globals error in mocha
+        mocha.checkLeaks();
+    </script>
+
+    <script src="testInit.js"></script>
+    <script src="test.worker.js"></script>
+</head>
+<body onload="mocha.run()">
+<div id="mocha"></div>
+</body>
+</html>
