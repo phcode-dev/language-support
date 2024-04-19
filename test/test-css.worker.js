@@ -45,14 +45,23 @@ describe(`web worker CSS Language tests`, function () {
         expect(output).to.be.not.null;
     });
 
-    it(`Should getAllSymbols get all css symbols`, async function () {
+    it(`Should getAllSymbols get all css selectors`, async function () {
         messageFromWorker = null;
-        const text = await (await fetch("test-files/a.css")).text();
+        const text = await (await fetch("test-files/css-tests/a.css")).text();
         worker.postMessage({command: `getAllSymbols`, text, cssMode: "CSS", filePath: "file:///a.css"});
         let output = await waitForWorkerMessage(`getAllSymbols`, 1000);
         const symbols = output.symbols;
         expect(symbols.length).to.eql(29);
         expect(symbols.includes(".testClass")).to.be.true;
         expect(symbols.includes("@keyframes shooting")).to.be.true;
+    });
+
+    it(`Should getAllSymbols get all less selectors`, async function () {
+        messageFromWorker = null;
+        const text = await (await fetch("test-files/css-tests/b.less")).text();
+        worker.postMessage({command: `getAllSymbols`, text, cssMode: "LESS", filePath: "file:///b.less"});
+        let output = await waitForWorkerMessage(`getAllSymbols`, 1000);
+        const symbols = output.symbols;
+        expect(symbols).to.deep.equal(["#header",".navigation",".logo","& .phcode"]);
     });
 });

@@ -4,8 +4,7 @@ const service = cssLangService.getCSSLanguageService();
 const CSS_MODES = {
     CSS: "css",
     LESS: "less",
-    SCSS: "scss",
-    SASS: "sass"
+    SCSS: "scss"
 };
 
 function getTextDocument(text, languageID, filePath = "file://placeholder.css") {
