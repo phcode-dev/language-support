@@ -24,13 +24,13 @@ describe(`web worker CSS Language tests`, function () {
         return new Promise((resolve)=>{
             let interVal;
             function checkMessage() {
-                if(messageFromWorker === message){
-                    resolve(true);
+                if(messageFromWorker && messageFromWorker.type === message){
+                    resolve(messageFromWorker);
                     clearInterval(interVal);
                 }
                 let elapsedTime = Date.now() - startTime;
                 if(elapsedTime > timeoutMs){
-                    resolve(false);
+                    resolve(null);
                     clearInterval(interVal);
                 }
             }
@@ -41,7 +41,18 @@ describe(`web worker CSS Language tests`, function () {
     it(`Should load CSS Language Service in worker`, async function () {
         messageFromWorker = null;
         worker.postMessage({command: `workerOK`});
-        let status = await waitForWorkerMessage(`worker.ok`, 1000);
-        expect(status).to.be.true;
+        let output = await waitForWorkerMessage(`worker.ok`, 1000);
+        expect(output).to.be.not.null;
+    });
+
+    it(`Should getAllSymbols get all css symbols`, async function () {
+        messageFromWorker = null;
+        const text = await (await fetch("test-files/a.css")).text();
+        worker.postMessage({command: `getAllSymbols`, text, cssMode: "CSS", filePath: "file:///a.css"});
+        let output = await waitForWorkerMessage(`getAllSymbols`, 1000);
+        const symbols = output.symbols;
+        expect(symbols.length).to.eql(29);
+        expect(symbols.includes(".testClass")).to.be.true;
+        expect(symbols.includes("@keyframes shooting")).to.be.true;
     });
 });
