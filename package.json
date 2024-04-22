@@ -30,8 +30,11 @@
   },
   "files": [
     "dist/language-worker.js",
+    "dist/language-worker.js.map",
     "dist/language-worker-debug.js",
-    "LICENSE-thirdParty"
+    "dist/language-worker-debug.js.map",
+    "LICENSE-thirdParty",
+    "LICENSE"
   ],
   "devDependencies": {
     "vscode-css-languageservice": "^6.0.0",
