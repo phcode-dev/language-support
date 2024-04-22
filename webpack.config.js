@@ -3,6 +3,11 @@ const path = require('path');
 
 module.exports = {
     entry: './src/worker',
+    resolve: {
+        fallback: {
+            "path": require.resolve('path-browserify')
+        }
+    },
     output: {
         filename: 'language-worker.js',
         path: path.resolve(__dirname, 'dist'),

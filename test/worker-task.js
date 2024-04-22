@@ -1,7 +1,7 @@
 /* global*/
 
-importScripts("dist/language-worker.js");
-// importScripts("dist/language-worker-debug.js"); // uncomment to debug
+// importScripts("dist/language-worker.js");
+importScripts("dist/language-worker-debug.js"); // uncomment to debug
 
 function workerOK() {
     if(self.CSSLanguageService){

@@ -64,4 +64,13 @@ describe(`web worker CSS Language tests`, function () {
         const symbols = output.symbols;
         expect(symbols).to.deep.equal(["#header",".navigation",".logo","& .phcode"]);
     });
+
+    it(`Should getAllSymbols get all scss selectors`, async function () {
+        messageFromWorker = null;
+        const text = await (await fetch("test-files/css-tests/c.scss")).text();
+        worker.postMessage({command: `getAllSymbols`, text, cssMode: "SCSS", filePath: "file:///c.scss"});
+        let output = await waitForWorkerMessage(`getAllSymbols`, 1000);
+        const symbols = output.symbols;
+        expect(symbols).to.deep.equal(['.info', '.alert', '#success']);
+    });
 });
