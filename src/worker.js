@@ -1,12 +1,14 @@
-import {getAllSymbols, CSS_MODES} from "./css-ls";
+import {getAllSymbols, CSS_MODES, validateCSS, DiagnosticSeverity} from "./css-ls";
 import {HTML_MODES, getAllDocumentLinks} from "./html-ls";
 
 self.CSSLanguageService = {
     getAllSymbols,
-    CSS_MODES
+    validateCSS,
+    CSS_MODES,
+    DiagnosticSeverity
 };
 
 self.HTMLLanguageService = {
     getAllDocumentLinks,
-    HTML_MODES
+    HTML_MODES,
 };

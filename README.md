@@ -89,7 +89,7 @@ retrieving CSS selectors(document symbols such as classes, IDs, and other select
 
 ### Methods
 
-#### `getAllSymbols(text, cssMode, filePath)`
+### `getAllSymbols(text, cssMode, filePath)`
 
 Retrieves all CSS selectors from the provided CSS text as an array of strings.
 
@@ -110,6 +110,52 @@ const cssText = ".class { color: red; } #id { margin: 10px; }";
 const selectors = CSSLanguageService.getAllSymbols(cssText, CSSLanguageService.CSS_MODES.CSS);
 console.log(selectors); // Output: [".class", "#id"]
 ```
+
+### `validateCSS(text, cssMode, filePath, lintSettings)`
+
+Validates CSS code using specified settings and returns an array of diagnostic messages.
+
+**Parameters:**
+
+- `text` (string): The CSS code to be validated.
+- `cssMode` (string): The CSS mode used for parsing the code.
+- `filePath` (string): The path of the CSS file being validated.
+- `lintSettings` (object): The lint settings to be used for validation.
+
+  Possible keys and their descriptions:
+  - `compatibleVendorPrefixes`: Unnecessary vendor prefixes checker.
+  - `vendorPrefix`: Warns on missing vendor prefixes.
+  - `duplicateProperties`: Flags duplicated CSS properties.
+  - `emptyRules`: Detects CSS rules that have no properties.
+  - `importStatement`: Flags the use of @import within CSS files.
+  - `boxModel`: Warns if CSS box model is potentially misused.
+  - `universalSelector`: Warns against the use of the universal selector (*).
+  - `zeroUnits`: Warns when units specification for zero values is unnecessary.
+  - `fontFaceProperties`: Ensures necessary properties are included in @font-face declarations.
+  - `hexColorLength`: Enforces consistency in hex color definitions.
+  - `argumentsInColorFunction`: Validates arguments within color functions.
+  - `unknownProperties`: Warns on unrecognized or mistyped CSS properties.
+  - `ieHack`: Warns about CSS hacks for older versions of Internet Explorer.
+  - `unknownVendorSpecificProperties`: Flags vendor-specific properties that might not be universally recognized.
+  - `propertyIgnoredDueToDisplay`: Notifies when CSS properties are ignored due to the `display` setting of an element.
+  - `important`: Warns against the excessive use of `!important`.
+  - `float`: Advises on the use of `float`, recommending modern layout alternatives.
+  - `idSelector`: Advises against using ID selectors for styling.
+
+Each key's value can be "warning" or "error".
+
+**Return Value:**
+
+Returns an `Array` of objects with the following properties:
+- `code` (string)
+- `source` (string)
+- `message` (string)
+- `severity` (number)
+- `range` (object) which includes:
+  - `start` (object): contains `line` (number) and `character` (number)
+  - `end` (object): contains `line` (number) and `character` (number)
+
+These objects represent the diagnostic messages produced during validation.
 
 ### Constants
 
