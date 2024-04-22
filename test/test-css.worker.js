@@ -80,7 +80,7 @@ describe(`web worker CSS Language tests`, async function () {
      * - "vendorPrefix": Warns on missing vendor prefixes.
      * - "universalSelector": Warns against the use of the universal selector (*).
      * - "hexColorLength": Enforces consistency in hex color definitions.
-     * - "argumentsInColorFunction": Validates arguments within color functions.
+     * - "argumentsInColorFunction": Validates arguments within color functions. -- this doesnt work/vscode bug likely
      * - "float": Advises on the use of `float`, recommending modern layout alternatives.
      * - "idSelector": Advises against using ID selectors for styling.
      */
@@ -100,6 +100,22 @@ describe(`web worker CSS Language tests`, async function () {
      * boxModel: none
      * important: none
      */
+
+    it("should validate css argumentsInColorFunction", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `div {
+            background-color: rgba ( 10,20,30,40,50);
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
+                argumentsInColorFunction: "warning"
+            }
+        });
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["argumentsInColorFunction"]);
+    });
 
     it("should validate css unknownVendorSpecificProperties", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
