@@ -96,10 +96,41 @@ describe(`web worker CSS Language tests`, async function () {
      * zeroUnits: "warning"
      * emptyRules: "warning"
      * unknownProperties: "warning"
+     * ieHack: "warning"
      * // leave default
      * importStatement: none
      * boxModel: none
      */
+
+    it("should validate css ieHack", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `.myClass {
+            color: blue; /* For modern browsers */
+            _color: red; /* This color is only for IE 6 and below */
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
+                ieHack: "warning"
+            }
+        });
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["ieHack"]);
+    });
+
+    it("should validate css ieHack by default", async function () {
+        messageFromWorker = null;
+        const text = `.myClass {
+            color: blue; /* For modern browsers */
+            _color: red; /* This color is only for IE 6 and below */
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal([]);
+    });
 
     it("should validate css unknownProperties", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();

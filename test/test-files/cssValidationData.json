@@ -139,5 +139,21 @@
         "character": 23
       }
     }
+  }],
+  "ieHack": [{
+    "code": "ieHack",
+    "source": "css",
+    "message": "IE hacks are only necessary when supporting IE7 and older",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 2,
+        "character": 12
+      },
+      "end": {
+        "line": 2,
+        "character": 18
+      }
+    }
   }]
 }
