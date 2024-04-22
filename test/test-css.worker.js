@@ -5,7 +5,7 @@ describe(`web worker CSS Language tests`, function () {
     let messageFromWorker = null;
 
     before(async function () {
-        worker = new Worker(`worker-task.js?debug=true`);
+        worker = new Worker(`css-worker-task.js`);
         console.log(worker);
         worker.onmessage= function (event) {
             console.log(`From Worker:`, event);
