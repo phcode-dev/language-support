@@ -126,3 +126,49 @@ Defines the supported CSS modes for the `getAllSymbols` function. Includes:
 ```javascript
 console.log(CSSLanguageService.CSS_MODES.CSS); // Output: "CSS"
 ```
+
+## HTMLLanguageService API
+
+The `HTMLLanguageService` provides utility functions for parsing and operating on HTML/PHP/HTML Like content.
+
+### Methods
+
+#### `getAllDocumentLinks(text, htmlMode, filePath)`
+
+Extracts all links from the provided HTML text.
+
+**Parameters**:
+
+- `text` (`string`): The CSS code to analyze.
+- `cssMode` (`string`): The mode of the HTML document. This should correspond to one of the supported HTML modes (e.g., HTML, PHP, XHTML, HTM) defined in `HTML_MODES`.
+- `filePath` (`string`): Optional. The path of the html file, used for resolving relative URLs within the CSS. Defaults to `"file:///placeholder.html"`.
+
+**Returns**:
+
+- `Array[string]`: An array containing all the html links found in the document.
+
+**Example Usage**:
+
+```javascript
+const htmlContent = `<a href="http://example.com">Visit Example</a>`;
+const links = HTMLLanguageService.getAllDocumentLinks(htmlContent,
+        HTMLLanguageService.HTML_MODES.HTML, "file:///your-path.html");
+console.log(links); // Output: ["http://example.com"]
+```
+
+### Constants
+
+#### `CSSLanguageService.HTML_MODES`
+
+Defines the supported HTML modes. Includes:
+
+- `HTML`: Standard HTML documents.
+- `XHTML`: XHTML documents.
+- `HTM`: HTM files, commonly an alternate extension for HTML files.
+- `PHP`: PHP files that contain HTML content.
+
+**Example**:
+
+```javascript
+console.log(HTMLLanguageService.HTML_MODES.HTML); // Output: "HTML"
+```
