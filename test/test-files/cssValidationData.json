@@ -155,5 +155,21 @@
         "character": 18
       }
     }
+  }],
+  "propertyIgnoredDueToDisplay": [{
+    "code": "propertyIgnoredDueToDisplay",
+    "source": "css",
+    "message": "inline-block is ignored due to the float. If 'float' has a value other than 'none', the box is floated and 'display' is treated as 'block'",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 2,
+        "character": 12
+      },
+      "end": {
+        "line": 2,
+        "character": 24
+      }
+    }
   }]
 }

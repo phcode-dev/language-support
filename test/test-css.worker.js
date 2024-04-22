@@ -82,7 +82,6 @@ describe(`web worker CSS Language tests`, async function () {
      * - "fontFaceProperties": Ensures necessary properties are included in @font-face declarations.
      * - "hexColorLength": Enforces consistency in hex color definitions.
      * - "argumentsInColorFunction": Validates arguments within color functions.
-     * - "ieHack": Warns about CSS hacks for older versions of Internet Explorer.
      * - "unknownVendorSpecificProperties": Flags vendor-specific properties that might not be universally recognized.
      * - "propertyIgnoredDueToDisplay": Notifies when CSS properties are ignored due to the `display` setting of an element.
      * - "important": Warns against the excessive use of `!important`.
@@ -97,10 +96,42 @@ describe(`web worker CSS Language tests`, async function () {
      * emptyRules: "warning"
      * unknownProperties: "warning"
      * ieHack: "warning"
+     * propertyIgnoredDueToDisplay: "warning"
      * // leave default
      * importStatement: none
      * boxModel: none
      */
+
+    it("should validate css propertyIgnoredDueToDisplay", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `.element {
+            display: inline-block;
+            float: right;
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
+                propertyIgnoredDueToDisplay: "warning"
+            }
+        });
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["propertyIgnoredDueToDisplay"]);
+    });
+
+    it("should validate css propertyIgnoredDueToDisplay by default", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `.element {
+            display: inline-block;
+            float: right;
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["propertyIgnoredDueToDisplay"]);
+    });
 
     it("should validate css ieHack", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
