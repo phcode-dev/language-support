@@ -75,6 +75,7 @@ describe(`web worker CSS Language tests`, async function () {
     });
 
     /**
+     * // todo these tests
      * - "compatibleVendorPrefixes": Unnecessary vendor prefixes checker.
      * - "vendorPrefix": Warns on missing vendor prefixes.
      * - "boxModel": Warns if CSS box model is potentially misused.
@@ -91,6 +92,48 @@ describe(`web worker CSS Language tests`, async function () {
      * - "idSelector": Advises against using ID selectors for styling.
      */
 
+    /**
+     * Best defaults to use:
+     * duplicateProperties: "warning"
+     * zeroUnits: "warning"
+     * emptyRules: "warning"
+     * // leave default
+     * importStatement: none
+     * boxModel: none
+     */
+
+    it("should validate css boxModel", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `.box {
+            width: 300px;
+            padding: 50px;
+            border: 5px solid black;
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
+                boxModel: "warning"
+            }
+        });
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["boxModel"]);
+    });
+
+    it("should not validate css boxModel by default", async function () {
+        messageFromWorker = null;
+        const text = `.box {
+            width: 300px;
+            padding: 50px;
+            border: 5px solid black;
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal([]);
+    });
+
     it("should validate css zeroUnits", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
         messageFromWorker = null;
@@ -103,6 +146,15 @@ describe(`web worker CSS Language tests`, async function () {
         let output = await waitForWorkerMessage(`validateCSS`, 1000);
         const symbols = output.diag;
         expect(symbols).to.deep.equal(cssValidationData["zeroUnits"]);
+    });
+
+    it("should not validate css zeroUnits by default", async function () {
+        messageFromWorker = null;
+        const text = `.box { width: 0px;}`;
+        worker.postMessage({command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal([]);
     });
 
     it("should validate css duplicateProperties", async function () {
@@ -119,6 +171,16 @@ describe(`web worker CSS Language tests`, async function () {
         expect(symbols).to.deep.equal(cssValidationData["duplicateProperties"]);
     });
 
+    it("should not validate css duplicateProperties by default", async function () {
+        messageFromWorker = null;
+        const text = `.box { color: red; color: blue; }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal([]);
+    });
+
     it("should validate css importStatement", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
         messageFromWorker = null;
@@ -131,15 +193,33 @@ describe(`web worker CSS Language tests`, async function () {
         expect(symbols).to.deep.equal(cssValidationData["importStatement"]);
     });
 
+    it("should not validate css importStatement by default", async function () {
+        messageFromWorker = null;
+        const text = `@import "a.css"`;
+        worker.postMessage({command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal([]);
+    });
+
     it("should validate css emptyRules", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
         messageFromWorker = null;
         const text = `.box {}`;
         worker.postMessage({command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
-            compatibleVendorPrefixes: "warning"
+            emptyRules: "warning"
         }});
         let output = await waitForWorkerMessage(`validateCSS`, 1000);
         const symbols = output.diag;
-        expect(symbols).to.deep.equal(cssValidationData["compatibleVendorPrefixes"]);
+        expect(symbols).to.deep.equal(cssValidationData["emptyRules"]);
+    });
+    it("should validate css emptyRules by default", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `.box {}`;
+        worker.postMessage({command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["emptyRules"]);
     });
 });

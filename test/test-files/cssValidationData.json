@@ -46,7 +46,7 @@
       }
     }
   }],
-  "compatibleVendorPrefixes": [{
+  "emptyRules": [{
     "code": "emptyRules",
     "source": "css",
     "message": "Do not use empty rulesets",
@@ -75,6 +75,52 @@
       "end": {
         "line": 0,
         "character": 17
+      }
+    }
+  }],
+  "boxModel": [{
+    "code": "boxModel",
+    "source": "css",
+    "message": "Do not use width or height when using padding or border",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 2,
+        "character": 12
+      },
+      "end": {
+        "line": 2,
+        "character": 25
+      }
+    }
+  }, {
+    "code": "boxModel",
+    "source": "css",
+    "message": "Do not use width or height when using padding or border",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 3,
+        "character": 12
+      },
+      "end": {
+        "line": 3,
+        "character": 35
+      }
+    }
+  }, {
+    "code": "boxModel",
+    "source": "css",
+    "message": "Do not use width or height when using padding or border",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 24
       }
     }
   }]
