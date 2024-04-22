@@ -79,12 +79,8 @@ describe(`web worker CSS Language tests`, async function () {
      * - "compatibleVendorPrefixes": Unnecessary vendor prefixes checker.
      * - "vendorPrefix": Warns on missing vendor prefixes.
      * - "universalSelector": Warns against the use of the universal selector (*).
-     * - "fontFaceProperties": Ensures necessary properties are included in @font-face declarations.
      * - "hexColorLength": Enforces consistency in hex color definitions.
      * - "argumentsInColorFunction": Validates arguments within color functions.
-     * - "unknownVendorSpecificProperties": Flags vendor-specific properties that might not be universally recognized.
-     * - "propertyIgnoredDueToDisplay": Notifies when CSS properties are ignored due to the `display` setting of an element.
-     * - "important": Warns against the excessive use of `!important`.
      * - "float": Advises on the use of `float`, recommending modern layout alternatives.
      * - "idSelector": Advises against using ID selectors for styling.
      */
@@ -97,10 +93,71 @@ describe(`web worker CSS Language tests`, async function () {
      * unknownProperties: "warning"
      * ieHack: "warning"
      * propertyIgnoredDueToDisplay: "warning"
+     * fontFaceProperties: "warning"
+     * unknownVendorSpecificProperties: "warning"
      * // leave default
      * importStatement: none
      * boxModel: none
+     * important: none
      */
+
+    it("should validate css unknownVendorSpecificProperties", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `div {
+            -microsoft-border-radius: 5px;
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
+                unknownVendorSpecificProperties: "warning"
+            }
+        });
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["unknownVendorSpecificProperties"]);
+    });
+
+    it("should validate css fontFaceProperties", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `@font-face {
+            font-family: 'MyFont';
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css", lintSettings: {
+                fontFaceProperties: "warning"
+            }
+        });
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["fontFaceProperties"]);
+    });
+
+    it("should validate css fontFaceProperties by default", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `@font-face {
+            font-family: 'MyFont';
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["fontFaceProperties"]);
+    });
+
+    it("should not validate css important by default", async function () {
+        messageFromWorker = null;
+        const text = `.element {
+            width: 0 !important;
+            height: 0 !important;
+        }`;
+        worker.postMessage({
+            command: `validateCSS`, text, cssMode: "CSS", filePath: "file:///c.css"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal([]);
+    });
 
     it("should validate css propertyIgnoredDueToDisplay", async function () {
         const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();

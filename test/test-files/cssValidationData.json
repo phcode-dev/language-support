@@ -171,5 +171,52 @@
         "character": 24
       }
     }
+  }],
+  "fontFaceProperties": [{
+    "code": "fontFaceProperties",
+    "source": "css",
+    "message": "@font-face rule must define 'src' and 'font-family' properties",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 2,
+        "character": 9
+      }
+    }
+  }],
+  "unknownVendorSpecificProperties": [{
+    "code": "unknownVendorSpecificProperties",
+    "source": "css",
+    "message": "Unknown vendor specific property.",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 36
+      }
+    }
+  }, {
+    "code": "vendorPrefix",
+    "source": "css",
+    "message": "Also define the standard property 'border-radius' for compatibility",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 36
+      }
+    }
   }]
 }
