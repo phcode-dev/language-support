@@ -1,0 +1,81 @@
+{
+  "duplicateProperties": [{
+    "code": "duplicateProperties",
+    "source": "css",
+    "message": "Do not use duplicate style definitions",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 7
+      },
+      "end": {
+        "line": 0,
+        "character": 17
+      }
+    }
+  },{
+    "code": "duplicateProperties",
+    "source": "css",
+    "message": "Do not use duplicate style definitions",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 19
+      },
+      "end": {
+        "line": 0,
+        "character": 30
+      }
+    }
+  }],
+  "importStatement": [{
+    "code": "importStatement",
+    "source": "css",
+    "message": "Import statements do not load in parallel",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 0,
+        "character": 15
+      }
+    }
+  }],
+  "compatibleVendorPrefixes": [{
+    "code": "emptyRules",
+    "source": "css",
+    "message": "Do not use empty rulesets",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 0,
+        "character": 4
+      }
+    }
+  }],
+  "zeroUnits": [{
+    "code": "zeroUnits",
+    "source": "css",
+    "message": "No unit for zero needed",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 14
+      },
+      "end": {
+        "line": 0,
+        "character": 17
+      }
+    }
+  }]
+}
