@@ -71,7 +71,7 @@ describe(`web worker CSS Language tests`, async function () {
         worker.postMessage({command: `getAllSymbols`, text, cssMode: "SCSS", filePath: "file:///c.scss"});
         let output = await waitForWorkerMessage(`getAllSymbols`, 1000);
         const symbols = output.symbols;
-        expect(symbols).to.deep.equal(['.info', '.alert', '#success']);
+        expect(symbols).to.deep.equal(["theme", '.info', '.alert', '#success']);
     });
 
     /**
@@ -368,5 +368,25 @@ describe(`web worker CSS Language tests`, async function () {
         let output = await waitForWorkerMessage(`validateCSS`, 1000);
         const symbols = output.diag;
         expect(symbols).to.deep.equal(cssValidationData["emptyRules"]);
+    });
+
+    it("should validate less emptyRules by default", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `// less supports comments\n.box {}`;
+        worker.postMessage({command: `validateCSS`, text, cssMode: "LESS", filePath: "file:///c.less"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["emptyRulesLESS"]);
+    });
+
+    it("should validate scss emptyRules by default", async function () {
+        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        messageFromWorker = null;
+        const text = `// less supports comments\n.box {}`;
+        worker.postMessage({command: `validateCSS`, text, cssMode: "SCSS", filePath: "file:///c.scss"});
+        let output = await waitForWorkerMessage(`validateCSS`, 1000);
+        const symbols = output.diag;
+        expect(symbols).to.deep.equal(cssValidationData["emptyRulesSCSS"]);
     });
 });

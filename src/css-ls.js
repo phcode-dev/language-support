@@ -1,6 +1,8 @@
 import * as cssLangService from 'vscode-css-languageservice';
 
-const service = cssLangService.getCSSLanguageService();
+const cssService = cssLangService.getCSSLanguageService();
+const lessService = cssLangService.getLESSLanguageService();
+const scssService = cssLangService.getSCSSLanguageService();
 export const CSS_MODES = {
     CSS: "css",
     LESS: "less",
@@ -13,6 +15,17 @@ export const DiagnosticSeverity = {
     information: 3,
     hint: 4
 };
+
+function _getLanguageServiceToUse(cssMode) {
+    switch (cssMode) {
+    case "less": return lessService;
+    case "scss": return scssService;
+    case "css": return cssService;
+    default:
+        console.error("Unknown language mode: ", cssMode, "passed to css language service");
+        return cssService;
+    }
+}
 
 function getTextDocument(text, languageID, filePath = "file://placeholder.css") {
     return cssLangService.TextDocument.create(filePath, languageID, 1, text);
@@ -27,6 +40,7 @@ function getTextDocument(text, languageID, filePath = "file://placeholder.css") 
  */
 export function getAllSymbols(text, cssMode, filePath) {
     const textDocument = getTextDocument(text, cssMode, filePath);
+    const service = _getLanguageServiceToUse(cssMode);
     const stylesheet = service.parseStylesheet(textDocument);
     const output = [];
     for(let symbol of service.findDocumentSymbols(textDocument, stylesheet)) {
@@ -81,6 +95,7 @@ export function getAllSymbols(text, cssMode, filePath) {
  */
 export function validateCSS(text, cssMode, filePath, lintSettings) {
     const textDocument = getTextDocument(text, cssMode, filePath);
+    const service = _getLanguageServiceToUse(cssMode);
     const stylesheet = service.parseStylesheet(textDocument);
     return  service.doValidation(textDocument, stylesheet, {
         validate: true,

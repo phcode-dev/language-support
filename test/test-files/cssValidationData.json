@@ -62,6 +62,38 @@
       }
     }
   }],
+  "emptyRulesLESS" : [{
+    "code": "emptyRules",
+    "source": "less",
+    "message": "Do not use empty rulesets",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 0
+      },
+      "end": {
+        "line": 1,
+        "character": 4
+      }
+    }
+  }],
+  "emptyRulesSCSS": [{
+    "code": "emptyRules",
+    "source": "scss",
+    "message": "Do not use empty rulesets",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 0
+      },
+      "end": {
+        "line": 1,
+        "character": 4
+      }
+    }
+  }],
   "zeroUnits": [{
     "code": "zeroUnits",
     "source": "css",
