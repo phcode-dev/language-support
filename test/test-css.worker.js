@@ -101,10 +101,10 @@ describe(`web worker CSS Language tests`, async function () {
      * important: none
      */
 
-    const CSS_MODES = ["CSS"];
+    const CSS_MODES = ["CSS", "LESS", "SCSS"];
     for(let css of CSS_MODES){
-        it("should validate css unknownVendorSpecificProperties", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} unknownVendorSpecificProperties`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `div {
             -microsoft-border-radius: 5px;
@@ -119,8 +119,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["unknownVendorSpecificProperties"]);
         });
 
-        it("should validate css fontFaceProperties", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} fontFaceProperties`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `@font-face {
             font-family: 'MyFont';
@@ -135,8 +135,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["fontFaceProperties"]);
         });
 
-        it("should validate css fontFaceProperties by default", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} fontFaceProperties by default`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `@font-face {
             font-family: 'MyFont';
@@ -148,7 +148,7 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["fontFaceProperties"]);
         });
 
-        it("should not validate css important by default", async function () {
+        it(`should not validate ${css} important by default`, async function () {
             messageFromWorker = null;
             const text = `.element {
             width: 0 !important;
@@ -161,8 +161,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal([]);
         });
 
-        it("should validate css propertyIgnoredDueToDisplay", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} propertyIgnoredDueToDisplay`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.element {
             display: inline-block;
@@ -178,8 +178,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["propertyIgnoredDueToDisplay"]);
         });
 
-        it("should validate css propertyIgnoredDueToDisplay by default", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} propertyIgnoredDueToDisplay by default`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.element {
             display: inline-block;
@@ -192,8 +192,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["propertyIgnoredDueToDisplay"]);
         });
 
-        it("should validate css ieHack", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} ieHack`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.myClass {
             color: blue; /* For modern browsers */
@@ -209,7 +209,7 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["ieHack"]);
         });
 
-        it("should validate css ieHack by default", async function () {
+        it(`should validate ${css} ieHack by default`, async function () {
             messageFromWorker = null;
             const text = `.myClass {
             color: blue; /* For modern browsers */
@@ -222,8 +222,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal([]);
         });
 
-        it("should validate css unknownProperties", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} unknownProperties`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box {
             doesntExist: 300px;
@@ -238,8 +238,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["unknownProperties"]);
         });
 
-        it("should validate css unknownProperties by default", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} unknownProperties by default`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box {
             doesntExist: 300px;
@@ -251,8 +251,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["unknownProperties"]);
         });
 
-        it("should validate css boxModel", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} boxModel`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box {
             width: 300px;
@@ -269,7 +269,7 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["boxModel"]);
         });
 
-        it("should not validate css boxModel by default", async function () {
+        it(`should not validate ${css} boxModel by default`, async function () {
             messageFromWorker = null;
             const text = `.box {
             width: 300px;
@@ -283,8 +283,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal([]);
         });
 
-        it("should validate css zeroUnits", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} zeroUnits`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box { width: 0px;}`;
             worker.postMessage({
@@ -297,7 +297,7 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["zeroUnits"]);
         });
 
-        it("should not validate css zeroUnits by default", async function () {
+        it(`should not validate ${css} zeroUnits by default`, async function () {
             messageFromWorker = null;
             const text = `.box { width: 0px;}`;
             worker.postMessage({command: `validateCSS`, text, cssMode: css, filePath: `file:///c.${css}`});
@@ -306,8 +306,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal([]);
         });
 
-        it("should validate css duplicateProperties", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} duplicateProperties`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box { color: red; color: blue; }`;
             worker.postMessage({
@@ -320,7 +320,7 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["duplicateProperties"]);
         });
 
-        it("should not validate css duplicateProperties by default", async function () {
+        it(`should not validate ${css} duplicateProperties by default`, async function () {
             messageFromWorker = null;
             const text = `.box { color: red; color: blue; }`;
             worker.postMessage({
@@ -330,8 +330,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal([]);
         });
 
-        it("should validate css importStatement", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} importStatement`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `@import "a.css"`;
             worker.postMessage({command: `validateCSS`, text, cssMode: css, filePath: `file:///c.${css}`, lintSettings: {
@@ -342,7 +342,7 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal(cssValidationData["importStatement"]);
         });
 
-        it("should not validate css importStatement by default", async function () {
+        it(`should not validate ${css} importStatement by default`, async function () {
             messageFromWorker = null;
             const text = `@import "a.css"`;
             worker.postMessage({command: `validateCSS`, text, cssMode: css, filePath: `file:///c.${css}`});
@@ -351,8 +351,8 @@ describe(`web worker CSS Language tests`, async function () {
             expect(symbols).to.deep.equal([]);
         });
 
-        it("should validate css emptyRules", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} emptyRules`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box {}`;
             worker.postMessage({command: `validateCSS`, text, cssMode: css, filePath: `file:///c.${css}`, lintSettings: {
@@ -362,8 +362,8 @@ describe(`web worker CSS Language tests`, async function () {
             const symbols = output.diag;
             expect(symbols).to.deep.equal(cssValidationData["emptyRules"]);
         });
-        it("should validate css emptyRules by default", async function () {
-            const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        it(`should validate ${css} emptyRules by default`, async function () {
+            const cssValidationData = await (await fetch(`test-files/${css}ValidationData.json`)).json();
             messageFromWorker = null;
             const text = `.box {}`;
             worker.postMessage({command: `validateCSS`, text, cssMode: css, filePath: `file:///c.${css}`});
@@ -375,7 +375,7 @@ describe(`web worker CSS Language tests`, async function () {
     }
 
     it("should validate less emptyRules by default", async function () {
-        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        const cssValidationData = await (await fetch("test-files/CSSValidationData.json")).json();
         messageFromWorker = null;
         const text = `// less supports comments\n.box {}`;
         worker.postMessage({command: `validateCSS`, text, cssMode: "LESS", filePath: "file:///c.less"});
@@ -385,7 +385,7 @@ describe(`web worker CSS Language tests`, async function () {
     });
 
     it("should validate scss emptyRules by default", async function () {
-        const cssValidationData = await (await fetch("test-files/cssValidationData.json")).json();
+        const cssValidationData = await (await fetch("test-files/CSSValidationData.json")).json();
         messageFromWorker = null;
         const text = `// less supports comments\n.box {}`;
         worker.postMessage({command: `validateCSS`, text, cssMode: "SCSS", filePath: "file:///c.scss"});

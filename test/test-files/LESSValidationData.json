@@ -1,0 +1,254 @@
+{
+  "duplicateProperties": [{
+    "code": "duplicateProperties",
+    "source": "less",
+    "message": "Do not use duplicate style definitions",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 7
+      },
+      "end": {
+        "line": 0,
+        "character": 17
+      }
+    }
+  },{
+    "code": "duplicateProperties",
+    "source": "less",
+    "message": "Do not use duplicate style definitions",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 19
+      },
+      "end": {
+        "line": 0,
+        "character": 30
+      }
+    }
+  }],
+  "importStatement": [{
+    "code": "importStatement",
+    "source": "less",
+    "message": "Import statements do not load in parallel",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 0,
+        "character": 15
+      }
+    }
+  }],
+  "emptyRules": [{
+    "code": "emptyRules",
+    "source": "less",
+    "message": "Do not use empty rulesets",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 0,
+        "character": 4
+      }
+    }
+  }],
+  "emptyRulesLESS" : [{
+    "code": "emptyRules",
+    "source": "less",
+    "message": "Do not use empty rulesets",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 0
+      },
+      "end": {
+        "line": 1,
+        "character": 4
+      }
+    }
+  }],
+  "emptyRulesSCSS": [{
+    "code": "emptyRules",
+    "source": "scss",
+    "message": "Do not use empty rulesets",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 0
+      },
+      "end": {
+        "line": 1,
+        "character": 4
+      }
+    }
+  }],
+  "zeroUnits": [{
+    "code": "zeroUnits",
+    "source": "less",
+    "message": "No unit for zero needed",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 14
+      },
+      "end": {
+        "line": 0,
+        "character": 17
+      }
+    }
+  }],
+  "boxModel": [{
+    "code": "boxModel",
+    "source": "less",
+    "message": "Do not use width or height when using padding or border",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 2,
+        "character": 12
+      },
+      "end": {
+        "line": 2,
+        "character": 25
+      }
+    }
+  }, {
+    "code": "boxModel",
+    "source": "less",
+    "message": "Do not use width or height when using padding or border",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 3,
+        "character": 12
+      },
+      "end": {
+        "line": 3,
+        "character": 35
+      }
+    }
+  }, {
+    "code": "boxModel",
+    "source": "less",
+    "message": "Do not use width or height when using padding or border",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 24
+      }
+    }
+  }],
+  "unknownProperties": [{
+    "code": "unknownProperties",
+    "source": "less",
+    "message": "Unknown property: 'doesntExist'",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 23
+      }
+    }
+  }],
+  "ieHack": [{
+    "code": "ieHack",
+    "source": "less",
+    "message": "IE hacks are only necessary when supporting IE7 and older",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 2,
+        "character": 12
+      },
+      "end": {
+        "line": 2,
+        "character": 18
+      }
+    }
+  }],
+  "propertyIgnoredDueToDisplay": [{
+    "code": "propertyIgnoredDueToDisplay",
+    "source": "less",
+    "message": "inline-block is ignored due to the float. If 'float' has a value other than 'none', the box is floated and 'display' is treated as 'block'",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 2,
+        "character": 12
+      },
+      "end": {
+        "line": 2,
+        "character": 24
+      }
+    }
+  }],
+  "fontFaceProperties": [{
+    "code": "fontFaceProperties",
+    "source": "less",
+    "message": "@font-face rule must define 'src' and 'font-family' properties",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 2,
+        "character": 9
+      }
+    }
+  }],
+  "unknownVendorSpecificProperties": [{
+    "code": "unknownVendorSpecificProperties",
+    "source": "less",
+    "message": "Unknown vendor specific property.",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 36
+      }
+    }
+  }, {
+    "code": "vendorPrefix",
+    "source": "less",
+    "message": "Also define the standard property 'border-radius' for compatibility",
+    "severity": 2,
+    "range": {
+      "start": {
+        "line": 1,
+        "character": 12
+      },
+      "end": {
+        "line": 1,
+        "character": 36
+      }
+    }
+  }]
+}
