@@ -1,7 +1,7 @@
 {
   "name": "@phcode/language-support",
   "description": "Language intelligence powering phoenix code, to be run in the browser/web worker env.",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "keywords": [
     "phoenix",
     "browser",
@@ -39,6 +39,7 @@
   "devDependencies": {
     "vscode-css-languageservice": "^6.0.0",
     "vscode-html-languageservice": "^5.2.0",
+    "html-validate": "^8.20.1",
     "shx": "^0.3.4",
     "@babel/core": "^7.18.0",
     "@babel/preset-env": "^7.18.0",

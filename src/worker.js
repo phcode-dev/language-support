@@ -1,5 +1,6 @@
 import {getAllSymbols, CSS_MODES, validateCSS, DiagnosticSeverity} from "./css-ls";
 import {HTML_MODES, getAllDocumentLinks} from "./html-ls";
+import {createHTMLValidator} from "./html-validate";
 
 self.CSSLanguageService = {
     getAllSymbols,
@@ -9,6 +10,7 @@ self.CSSLanguageService = {
 };
 
 self.HTMLLanguageService = {
+    createHTMLValidator,
     getAllDocumentLinks,
-    HTML_MODES,
+    HTML_MODES
 };
