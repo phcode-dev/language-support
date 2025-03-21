@@ -40,15 +40,15 @@
     "vscode-css-languageservice": "^6.0.0",
     "vscode-html-languageservice": "^5.2.0",
     "html-validate": "^8.20.1",
-    "shx": "^0.3.4",
+    "shx": "^0.4.0",
     "@babel/core": "^7.18.0",
     "@babel/preset-env": "^7.18.0",
     "babel-loader": "^8.2.5",
-    "parcel": "2.9.3",
+    "parcel": "2.14.1",
     "path-browserify": "^1.0.1",
     "process": "0.11.10",
-    "http-server": "14.1.0",
-    "eslint": "8.19.0"
+    "http-server": "14.1.1",
+    "eslint": "8.57.1"
   },
   "dependencies": {}
 }
